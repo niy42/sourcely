@@ -3,38 +3,38 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/shared/ThemeToggle";
-import { EventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SubButton from "@/components/shared/SubButtons";
 import AnimatedIcon from "@/components/shared/AnimatedIcon";
 import { Sacramento, Lobster_Two } from "next/font/google";
 import axios from "axios";
-import { StaticImageData } from "next/image";
-import { lapt as image1, laptop as image2, flip, okoro } from "@/public/assets";
-import Carousel from "@/components/shared/Carousel";
+import Image, { StaticImageData } from "next/image";
+
+import { RiCloseLine, RiMenu3Line } from 'react-icons/ri'
+import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io';
+import ProductGrid from "@/components/shared/ProductGrid";
+import ProductGridMobile from "@/components/shared/ProductGridMobile";
+import { useTheme } from "@/context/ThemeContext";
+import TestIcon from "@/components/shared/TestIcon";
 
 interface Props {
-  image: StaticImageData,
-  title: string
-};
-
-export type imageProps = {
-  images: Props[]
-};
+  image: StaticImageData;
+  title: string;
+}
 
 const lobsterTwo = Lobster_Two({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
 
-const imageObjects: Props[] = [
-  {
-    image: image1, title: ''
-  }, { image: image2, title: '' },
-  { image: flip, title: '' },
-  { image: okoro, title: '' }]
 
 export default function Component() {
-  const [theme, setTheme] = useState('dark');
+  const {
+    theme,
+    setTheme,
+    openIndex,
+    setOpenIndex,
+  } = useTheme();
   const [bg, setBg] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -45,7 +45,6 @@ export default function Component() {
     setStatus('Submitting...');
 
     try {
-      // Validate email format
       if (!email || !/\S+@\S+\.\S+/.test(email)) {
         setStatus('Please enter a valid email address.');
         return;
@@ -54,30 +53,14 @@ export default function Component() {
       const response = await axios.post('/api/subscribe', { email, name });
       if (response.status === 200) {
         setStatus('Thank You for Subscribing');
-        setEmail('');
-        setName(''); // Reset name if you are using it
       } else {
         setStatus(`Unexpected status code: ${response.status}`);
       }
     } catch (error: any) {
       console.error("Error: ", error);
-      if (error?.response && error.response?.status === 409) {
-        setStatus(error?.response?.data?.message || "Something went wrong. Please try again!");
-      } else {
-        setStatus("Something went wrong. Please try again!");
-      }
+      setStatus(error?.response?.data?.message || "Something went wrong. Please try again!");
     }
-  }
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+  };
 
   const handleBg = () => {
     setBg(window.scrollY >= 40);
@@ -93,11 +76,8 @@ export default function Component() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       {/* Header */}
-      <header className={`fixed w-full px-4 lg:px-6 h-14 flex items-center justify-between transition-colors duration-300 shadow z-40 
-      ${theme === 'dark' ?
-          (bg ? 'bg-gray-900' : 'bg-zinc-600/30') :
-          (bg ? 'bg-gray-300' : 'bg-[#f8eded]')
-        }`}>
+      <header className={`fixed w-full px-4 lg:px-6 h-14 flex items-center justify-between transition-colors duration-300 shadow z-40 overflow-hidden
+      ${theme === 'dark' ? (bg ? 'bg-gray-900' : 'bg-zinc-600/30') : (bg ? 'bg-gray-300' : 'bg-[#f8eded]')}`}>
         <Link href="#" className="flex items-center space-x-2" prefetch={false}>
           <MountainIcon className="h-6 w-6" />
           <span>Sourcely</span>
@@ -114,27 +94,40 @@ export default function Component() {
               Contact
             </Link>
           </nav>
-          <ThemeToggle currentTheme={theme} setTheme={setTheme} />
+          <div className="flex justify-between items-center gap-3 md:gap-6">
+            <ThemeToggle currentTheme={theme} setTheme={setTheme} />
+            <TestIcon />
+          </div>
+
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1">
+      <main className="flex-1 overflow-hidden">
         {/* Hero Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/012/979/472/non_2x/modern-high-resolution-black-geometric-background-with-polygonal-grid-abstract-black-metallic-hexagonal-pattern-simple-illustration-vector.jpg')" }}>
+        <section
+          className="w-full py-12 md:py-24 lg:py-32 bg-cover bg-center bg-no-repeat relative"
+          style={{
+            backgroundImage: "url('https://static.vecteezy.com/system/resources/previews/012/979/472/non_2x/modern-high-resolution-black-geometric-background-with-polygonal-grid-abstract-black-metallic-hexagonal-pattern-simple-illustration-vector.jpg')",
+          }}
+        >
           <div className="absolute inset-0 bg-black/40"></div> {/* Subtle Overlay */}
           <div className="container px-4 md:px-6 relative z-10">
-            <div className="grid gap-6 lg:grid-cols-[0.5fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
-              <div className="flex flex-col justify-center space-y-4">
+            <div className="grid gap-6 max-lg:grid-rows-2 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
+              <div className="flex flex-col justify-start space-y-4">
                 <div className="space-y-3">
                   <div className="flex flex-col space-y-1 items-start justify-around">
                     <div className="flex justify-center items-center space-x-3 h-auto overflow-visible leading-7 p-4">
-                      <h1 className={`text-5xl font-bold tracking-tight h-auto sm:text-5xl max-w-full whitespace-normal custom-h1 text-white ${lobsterTwo.className}`}>
+                      <h1
+                        className={`text-5xl font-bold tracking-tight h-auto sm:text-5xl max-w-full whitespace-normal custom-h1 text-white ${lobsterTwo.className}`}
+                      >
                         Sourcely
                       </h1>
                       <AnimatedIcon />
                     </div>
-                    <p className={`text-base sm:text-lg lg:text-xl font-bold leading-relaxed tracking-wide text-left mt-2 max-w-xl bg-clip-text text-transparent bg-gradient-to-r from-[#00c6ff] to-[#0072ff] shadow-md shadow-gray-800`}>
+                    <p
+                      className={`text-base sm:text-lg lg:text-xl font-bold leading-relaxed tracking-wide text-left mt-2 max-w-xl bg-clip-text text-transparent bg-gradient-to-r from-[#00c6ff] to-[#0072ff] shadow-gray-800`}
+                    >
                       Your Go-to Source for the Best and Cheapest Picks
                     </p>
                   </div>
@@ -159,112 +152,70 @@ export default function Component() {
                   </Link>
                 </div>
               </div>
-              {/*<img
-                src="/placeholder.svg"
-                width="550"
-                height="550"
-                alt="Sourcely photos"
-                className="mx-auto text-white aspect-square overflow-hidden rounded-xl object-cover w-full"
-              />*/}
-              <Carousel images={imageObjects} />
+              <div className="flex justify-center items-center w-full h-full">
+                { /*<Carousel images={imageObjects} />*/}
+                <Image src={""} alt="" />
+              </div>
             </div>
           </div>
         </section>
-
         {/* Product Grid */}
-        <section className="relative lg:left-12 w-full py-12 md:py-24 lg:py-32 overflow-x-hidden">
+        <section className="overflow-hidden relative w-full py-6 sm:py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="flex mb-6 lg:mb-0 flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl overflow-hidden">Explore Our Product Line</h2>
-                <p className="max-w-full text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="max-w-full text-sm sm:text-base md:text-lg">
                   Check out our diverse range of products, each designed to enhance your daily life.
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid grid-cols-1 gap-6 py-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-12 overflow-x-hidden">
-              { /*<!-- Product Card 1 -->*/}
-              <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
-                <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
-                  <span className="sr-only">View Product</span>
-                </Link>
-                <img
-                  src="/placeholder.svg"
-                  width="450"
-                  height="450"
-                  alt="Product 1"
-                  className="mx-auto aspect-square overflow-hidden object-cover transition-opacity group-hover:opacity-50"
-                />
-                <div className="p-4 bg-background">
-                  <h3 className="text-lg font-semibold md:text-xl">Ergonomic Office Chair</h3>
-                  <p className="text-sm text-muted-foreground">Comfortable and supportive chair for long workdays.</p>
-                  <h4 className="text-base font-semibold md:text-lg">$249.99</h4>
-                </div>
-              </div>
-
-              {/*<!-- Product Card 2 -->*/}
-              <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
-                <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
-                  <span className="sr-only">View Product</span>
-                </Link>
-                <img
-                  src="/placeholder.svg"
-                  width="450"
-                  height="450"
-                  alt="Product 2"
-                  className="mx-auto aspect-square overflow-hidden object-cover transition-opacity group-hover:opacity-50"
-                />
-
-                <div className="p-4 bg-background">
-                  <h3 className="text-lg font-semibold md:text-xl">Wireless Noise-Cancelling Headphones</h3>
-                  <p className="text-sm text-muted-foreground">Immersive audio experience for music and calls.</p>
-                  <h4 className="text-base font-semibold md:text-lg">$199.99</h4>
-                </div>
-              </div>
-
-              { /*<!-- Product Card 3 -->*/}
-              <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
-                <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
-                  <span className="sr-only">View Product</span>
-                </Link>
-                <img
-                  src="/placeholder.svg"
-                  width="450"
-                  height="450"
-                  alt="Product 3"
-                  className="mx-auto aspect-square overflow-hidden object-cover transition-opacity group-hover:opacity-50"
-                />
-                <div className="p-4 bg-background">
-                  <h3 className="text-lg font-semibold md:text-xl">Stainless Steel Water Bottle</h3>
-                  <p className="text-sm text-muted-foreground">Durable and eco-friendly water bottle for on-the-go.</p>
-                  <h4 className="text-base font-semibold md:text-lg">$29.99</h4>
-                </div>
-              </div>
-              {/*<!-- Product Card 4 -->*/}
-              <div className="relative overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2">
-                <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
-                  <span className="sr-only">View Product</span>
-                </Link>
-                <img
-                  src="/placeholder.svg"
-                  width="450"
-                  height="450"
-                  alt="Product 4"
-                  className="mx-auto aspect-square overflow-hidden object-cover transition-opacity group-hover:opacity-50"
-                />
-                <div className="p-4 bg-background">
-                  <h3 className="text-xl font-bold">Acme Pro Laptop</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Unleash your productivity with our powerful laptop.
-                  </p>
-                </div>
-              </div>
-
+            <div className="overflow-hidden">
+              <ProductGrid />
+              <ProductGridMobile />
             </div>
           </div>
         </section>
-        {/*<!-- Subscription Section -->*/}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: "url('/assets/coffe.png')" }}>
+
+        {/* Subscription Section*/}
+        <section data-aos="zoom-in" className="overflow-hidden hidden md:block w-full py-12 md:py-24 lg:py-32 bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: "url('/assets/coffe.png')" }}>
+          <div className="absolute inset-0 bg-black/50"></div> {/* Subtle Overlay */}
+          <div className="container grid items-center justify-start gap-4 px-4 text-center md:px-6 relative z-10">
+            <div className="space-y-3">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-white">
+                Stay Updated on Our Latest Products
+              </h2>
+              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-white">
+                Subscribe to our email list to receive updates on new product releases, special offers, and more.
+              </p>
+            </div>
+            <div className="mx-auto w-full max-w-2xl space-y-2">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:flex-row bg-transparent xl:bg-gray-900 p-4 rounded-2xl">
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="w-full sm:w-1/3 px-4 py-2 text-white bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full sm:w-1/3 px-4 py-2 text-white bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <SubButton type="submit">Subscribe</SubButton>
+              </form>
+              <p className="text-white">{status}</p>
+              <p className="text-xs text-muted-foreground text-white">
+                We respect your privacy. Your email will not be shared.
+              </p>
+            </div>
+          </div>
+        </section>
+        {/* Subscription Section mobile */}
+        <section data-aos="flip-left" className="overflow-hidden md:hidden w-full py-12 md:py-24 lg:py-32 bg-cover bg-center bg-no-repeat relative" style={{ backgroundImage: "url('/assets/coffe.png')" }}>
           <div className="absolute inset-0 bg-black/50"></div> {/* Subtle Overlay */}
           <div className="container grid items-center justify-start gap-4 px-4 text-center md:px-6 relative z-10">
             <div className="space-y-3">
@@ -301,8 +252,8 @@ export default function Component() {
           </div>
         </section>
 
-        {/*<!-- Footer -->*/}
-        <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-t-zinc-200/80">
+        {/* Footer */}
+        <footer className="flex overflow-hidden flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-t-zinc-200/80">
           <p className="text-xs text-muted-foreground">&copy; 2024 Acme Inc. All rights reserved.</p>
           <nav className="sm:ml-auto flex gap-4 sm:gap-6 mt-2 sm:mt-0">
             <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
@@ -314,7 +265,7 @@ export default function Component() {
           </nav>
         </footer>
       </main>
-    </div >
+    </div>
   );
 }
 

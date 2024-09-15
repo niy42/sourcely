@@ -95,13 +95,71 @@ h1 {
     }
 }
 
+.product_grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 3rem;
+}
 
+@media screen and (max-width: 800px) {
+    .product_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
 
+@media screen and (max-width: 700px) {
+    .product_grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+  }
 
+/* Base styles for the mobile nav menu */
+.mobile-nav {
+  position: fixed; /* Use fixed positioning to cover the screen */
+  top: -100%; /* Initially hide it off the screen from the top */
+  right: 72px;
+  width: 100vw; /* Full viewport width for the mobile menu */
+  max-width: 200px; /* Adjust width as needed */
+  background-color: #2d3748; /* Match your bg-gray-800 color */
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(0); /* No vertical translation by default */
+  transition: top 0.5s ease-in-out; /* Transition for sliding effect */
+  z-index: 10;
+}
 
+/* Optional: Add a border if showBorder is true */
+.mobile-nav.show-border {
+  border: 2px dashed #4a5568; /* Match your border color */
+}
 
+/* Default state when active */
+.mobile-nav.active {
+  top: 12%; /* Default value for larger screens */
+}
 
+/* For screens 600px and below */
+@media screen and (max-width: 600px) {
+  .mobile-nav.active {
+    top: 10%; /* Adjusted for smaller screens */
+  }
+}
 
+/* For screens 450px and below */
+@media screen and (max-width: 450px) {
+  .mobile-nav.active {
+    top: 10%; /* Fine-tuned for smaller screens */
+  }
+}
+
+/* For screens 375px and below */
+@media screen and (max-width: 375px) {
+  .mobile-nav.active {
+    top: 10%; /* Adjusted for very narrow screens */
+  }
+}
 
 /*@tailwind base;
 @tailwind components;
