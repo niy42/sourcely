@@ -86,7 +86,7 @@ function MobileNav() {
                             )}
                         </div>
                     ))}
-                    <div className="py-3 px-5 w-full items-center justify-end cursor-pointer bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white font-light border border-pink-800 rounded-lg shadow-md transition-all duration-200">
+                    <div className="py-3 px-5 w-full items-center justify-end cursor-pointer bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white font-light border border-pink-800 rounded-lg shadow-md transition-all duration-200">
                         <Link legacyBehavior href={'#'}>
                             <a className="block text-xs font-light hover:text-gray-400">
                                 <span className="hover:text-gray-300 transition-colors duration-300 bg-transparent">Take Action</span>
