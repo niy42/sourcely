@@ -17,6 +17,7 @@ interface ThemeContextProps {
     showBorder: boolean;
     setShowBorder: Dispatch<SetStateAction<boolean>>;
     handleToggleMenu: (index: number) => void; // Fixed type
+    handleRightArrow: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps>({
@@ -32,7 +33,8 @@ const ThemeContext = createContext<ThemeContextProps>({
     setOpenIndex: () => { },
     showBorder: false,
     setShowBorder: () => { },
-    handleToggleMenu: () => { } // Fixed type
+    handleToggleMenu: () => { }, // Fixed type
+    handleRightArrow: () => { }
 });
 
 const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -42,6 +44,10 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [toggleMenu, setToggleMenu] = useState<boolean>(false);
     const [showBorder, setShowBorder] = useState<boolean>(false);
     const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+    function handleRightArrow() {
+        setCurrentLaptopIndex((prev) => (prev + 1) % laptopData.length);
+    }
 
     useEffect(() => {
         const imageInterval = setInterval(() => {
@@ -88,7 +94,8 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             setTheme,
             showBorder,
             setShowBorder,
-            handleToggleMenu
+            handleToggleMenu,
+            handleRightArrow
         }}>
             {children}
         </ThemeContext.Provider>

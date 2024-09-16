@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { laptopData } from '@/constants';
 
@@ -9,8 +9,10 @@ export default function ProductGrid() {
     const {
         theme,
         currentLaptopIndex,
-        currentImageIndex
+        currentImageIndex,
+        handleRightArrow,
     } = useTheme();
+    const [isHover, setIsHover] = useState(false);
 
     // Ensure the component updates when the laptop index changes
     useEffect(() => {
@@ -70,6 +72,79 @@ export default function ProductGrid() {
                         </div>
                     </div>
                 )}
+                <button
+                    className={`absolute z-40 bottom-6 right-4 translate-y-[-50%] 
+        ${theme === 'dark' ? "text-white stroke-white" : "text-black stroke-black"}
+        ${isHover ? 'over' : 'out'}`}
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                    onClick={handleRightArrow}
+                >
+                    <svg
+                        version="1.1"
+                        id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 237 237"
+                        className="w-16 h-16" /* Adjust size here */
+                        xmlSpace="preserve"
+                    >
+                        <style type="text/css">
+                            {`
+                .st0 {
+                    fill: none;
+                    stroke-width: 9;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                    stroke-miterlimit: 10;
+                }
+                .circle {
+                    stroke-dashoffset: 415;
+                    stroke-dasharray: 415;
+                }
+                button.over .circle {
+                    stroke: #d75050;
+                    stroke-dashoffset: 415;
+                    stroke-dasharray: 415;
+                    animation: dash 0.5s linear forwards;
+                }
+                button.over .arrow {
+                    animation: arrow 0.5s ease-in-out infinite alternate;
+                }
+                @keyframes dash {
+                    to {
+                        stroke-dashoffset: 0;
+                    }
+                }
+                @keyframes arrow {
+                    to {
+                        transform: translateX(5px);
+                    }
+                }
+                .circle2 {
+                    stroke-dashoffset: 628.31;
+                    stroke-dasharray: 628.31;
+                }
+                button.over .circle2 {
+                    stroke-dashoffset: 628.31;
+                    stroke-dasharray: 104.72;
+                    animation: dash 2s linear infinite;
+                }
+                button.out .circle2 {
+                    stroke-dashoffset: 628.31;
+                    stroke-dasharray: 628.31;
+                    animation: dash 1s linear;
+                }
+            `}
+                        </style>
+                        <circle className="st0 circle" cx="118.5" cy="118.5" r="66" />
+                        <circle className="st0 circle2" cx="118.5" cy="118.5" r="100" />
+                        <polygon className="st0 arrow" points="96.5,144.2 147.8,118.5 96.5,92.8 105.1,118.5" />
+                    </svg>
+                </button>
+
             </div>
 
             {/* Product Card 3 */}
@@ -101,6 +176,79 @@ export default function ProductGrid() {
                         </div>
                     </div>
                 )}
+                <button
+                    className={`absolute z-40 bottom-6 right-4 translate-y-[-50%] 
+        ${theme === 'dark' ? "text-white stroke-white" : "text-black stroke-black"}
+        ${isHover ? 'over' : 'out'}`}
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                    onClick={handleRightArrow}
+                >
+                    <svg
+                        version="1.1"
+                        id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 237 237"
+                        className="w-16 h-16" /* Adjust size here */
+                        xmlSpace="preserve"
+                    >
+                        <style type="text/css">
+                            {`
+                .st0 {
+                    fill: none;
+                    stroke-width: 9;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                    stroke-miterlimit: 10;
+                }
+                .circle {
+                    stroke-dashoffset: 415;
+                    stroke-dasharray: 415;
+                }
+                button.over .circle {
+                    stroke: #d75050;
+                    stroke-dashoffset: 415;
+                    stroke-dasharray: 415;
+                    animation: dash 0.5s linear forwards;
+                }
+                button.over .arrow {
+                    animation: arrow 0.5s ease-in-out infinite alternate;
+                }
+                @keyframes dash {
+                    to {
+                        stroke-dashoffset: 0;
+                    }
+                }
+                @keyframes arrow {
+                    to {
+                        transform: translateX(5px);
+                    }
+                }
+                .circle2 {
+                    stroke-dashoffset: 628.31;
+                    stroke-dasharray: 628.31;
+                }
+                button.over .circle2 {
+                    stroke-dashoffset: 628.31;
+                    stroke-dasharray: 104.72;
+                    animation: dash 2s linear infinite;
+                }
+                button.out .circle2 {
+                    stroke-dashoffset: 628.31;
+                    stroke-dasharray: 628.31;
+                    animation: dash 1s linear;
+                }
+            `}
+                        </style>
+                        <circle className="st0 circle" cx="118.5" cy="118.5" r="66" />
+                        <circle className="st0 circle2" cx="118.5" cy="118.5" r="100" />
+                        <polygon className="st0 arrow" points="96.5,144.2 147.8,118.5 96.5,92.8 105.1,118.5" />
+                    </svg>
+                </button>
+
             </div>
 
             {/* Product Card 4 */}
@@ -132,6 +280,79 @@ export default function ProductGrid() {
                         </div>
                     </div>
                 )}
+                <button
+                    className={`absolute z-40 bottom-6 right-4 translate-y-[-50%] 
+        ${theme === 'dark' ? "text-white stroke-white" : "text-black stroke-black"}
+        ${isHover ? 'over' : 'out'}`}
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                    onClick={handleRightArrow}
+                >
+                    <svg
+                        version="1.1"
+                        id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlnsXlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        viewBox="0 0 237 237"
+                        className="w-16 h-16" /* Adjust size here */
+                        xmlSpace="preserve"
+                    >
+                        <style type="text/css">
+                            {`
+                .st0 {
+                    fill: none;
+                    stroke-width: 9;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                    stroke-miterlimit: 10;
+                }
+                .circle {
+                    stroke-dashoffset: 415;
+                    stroke-dasharray: 415;
+                }
+                button.over .circle {
+                    stroke: #d75050;
+                    stroke-dashoffset: 415;
+                    stroke-dasharray: 415;
+                    animation: dash 0.5s linear forwards;
+                }
+                button.over .arrow {
+                    animation: arrow 0.5s ease-in-out infinite alternate;
+                }
+                @keyframes dash {
+                    to {
+                        stroke-dashoffset: 0;
+                    }
+                }
+                @keyframes arrow {
+                    to {
+                        transform: translateX(5px);
+                    }
+                }
+                .circle2 {
+                    stroke-dashoffset: 628.31;
+                    stroke-dasharray: 628.31;
+                }
+                button.over .circle2 {
+                    stroke-dashoffset: 628.31;
+                    stroke-dasharray: 104.72;
+                    animation: dash 2s linear infinite;
+                }
+                button.out .circle2 {
+                    stroke-dashoffset: 628.31;
+                    stroke-dasharray: 628.31;
+                    animation: dash 1s linear;
+                }
+            `}
+                        </style>
+                        <circle className="st0 circle" cx="118.5" cy="118.5" r="66" />
+                        <circle className="st0 circle2" cx="118.5" cy="118.5" r="100" />
+                        <polygon className="st0 arrow" points="96.5,144.2 147.8,118.5 96.5,92.8 105.1,118.5" />
+                    </svg>
+                </button>
+
             </div>
         </div>
     );

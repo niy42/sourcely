@@ -161,6 +161,66 @@ h1 {
   }
 }
 
+.button {
+  width: 275px;
+  height: 275px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #444f5c;
+  border-radius: 50%;
+}
+
+.button .circle {
+  stroke-dashoffset: 415;
+  stroke-dasharray: 415;
+  transition: stroke-dashoffset 0.5s linear;
+}
+
+.button.over .circle {
+  stroke: #d75050;
+  animation: dash 0.5s linear forwards;
+}
+
+.button.over .buton {
+  box-shadow: 100px 100px #000;
+}
+
+.button.over .arrow {
+  animation: arrow 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes arrow {
+  to {
+    transform: translateX(5px);
+  }
+}
+
+.button .circle2 {
+  stroke-dashoffset: 628.31;
+  stroke-dasharray: 628.31;
+}
+
+.button.over .circle2 {
+  stroke-dashoffset: 628.31;
+  stroke-dasharray: 104.72;
+  animation: dash 2s linear infinite;
+}
+
+.button.out .circle2 {
+  stroke-dashoffset: 628.31;
+  stroke-dasharray: 628.31;
+  animation: dash 1s linear;
+}
+
 /*@tailwind base;
 @tailwind components;
 @tailwind utilities;
