@@ -1,4 +1,4 @@
-import { imageProps } from "@/app/page";
+import { imageProps } from "@/app/page"
 import { Oswald } from "next/font/google";
 import Image from "next/image";
 import { useEffect, useState } from "react";

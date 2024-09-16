@@ -22,7 +22,7 @@ const mobileNav: MobNav[] = [
     { title: "Offerings", url: "", subNavLinks: [{ title: "News", url: "" }, { title: "Support Groups", url: "" }, { title: "Support NCSG", url: "" }] },
 ];
 
-function TestIcon() {
+function MobileNav() {
     const {
         toggleMenu,
         setToggleMenu,
@@ -99,4 +99,4 @@ function TestIcon() {
     );
 }
 
-export default TestIcon;
+export default MobileNav;
