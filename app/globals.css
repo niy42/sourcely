@@ -83,8 +83,6 @@ h1 {
   overflow: visible; /* Consider changing from hidden if overflow is the issue */
 }
 
-
-
 @layer utilities {
     .carousel_card {
         @apply flex flex-1 absolute w-full h-full overflow-x-hidden shadow-2xl opacity-0 pointer-events-none translate-x-full transition-transform duration-1000 scale-[0.6] md:scale-75 ease-in-out
@@ -221,7 +219,280 @@ h1 {
   animation: dash 1s linear;
 }
 
-/*@tailwind base;
+.arrow-right {
+  position: absolute;
+  top: 50%;
+  right: -15%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  z-index: 10;
+}
+
+.arrow-right-part {
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  transform: rotate(45deg);
+  border-top: 4px solid #C70053;
+  border-right: 4px solid #C70053;
+}
+
+.arrow-right-part:first-of-type {
+  animation: arrow-movement 2s ease-in-out infinite;
+}
+
+.arrow-right-part:last-of-type {
+  animation: arrow-movement 2s 1s ease-in-out infinite;
+}
+
+@keyframes arrow-movement {
+  0% {
+    opacity: 0;
+    left: 25px;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.arrow-left {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  z-index: 10;
+}
+
+.arrow-left-part {
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  transform: rotate(-135deg); /* Rotate to point left */
+  border-top: 4px solid #C70053;
+  border-right: 4px solid #C70053;
+  opacity: 0; /* Initial opacity set to 0 */
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+
+.arrow-left:hover .arrow-left-part,
+.arrow-left:focus .arrow-left-part,
+.arrow-left:active .arrow-left-part {
+  opacity: 1; /* On hover, focus, or touch (active), set opacity to 1 */
+}
+
+.arrow-left-part:first-of-type {
+  animation: left-arrow-movement 2s ease-in-out infinite;
+}
+
+.arrow-left-part:last-of-type {
+  animation: left-arrow-movement 2s 1s ease-in-out infinite;
+}
+
+@keyframes left-arrow-movement {
+  0% {
+    opacity: 0;
+    left: 75px; /* Reverse the movement */
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.arrow-right {
+  position: absolute;
+  top: 50%;
+  right: -16%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  z-index: 10;
+}
+
+.arrow-right-part {
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  transform: rotate(45deg);
+  border-top: 4px solid #C70053;
+  border-right: 4px solid #C70053;
+}
+
+.arrow-right-part:first-of-type {
+  animation: arrow-movement 2s ease-in-out infinite;
+}
+
+.arrow-right-part:last-of-type {
+  animation: arrow-movement 2s 1s ease-in-out infinite;
+}
+
+@keyframes arrow-movement {
+  0% {
+    opacity: 0;
+    left: 25px;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.arrow-left {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  z-index: 10;
+}
+
+.arrow-left-part {
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  transform: rotate(-135deg); /* Rotate to point left */
+  border-top: 4px solid #C70053;
+  border-right: 4px solid #C70053;
+  opacity: 0; /* Initial opacity set to 0 */
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+
+.arrow-left:hover .arrow-left-part,
+.arrow-left:focus .arrow-left-part,
+.arrow-left:active .arrow-left-part {
+  opacity: 1; /* On hover, focus, or touch (active), set opacity to 1 */
+}
+
+.arrow-left-part:first-of-type {
+  animation: left-arrow-movement 2s ease-in-out infinite;
+}
+
+.arrow-left-part:last-of-type {
+  animation: left-arrow-movement 2s 1s ease-in-out infinite;
+}
+
+@keyframes left-arrow-movement {
+  0% {
+    opacity: 0;
+    left: 75px; /* Reverse the movement */
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media screen and (min-width: 500px) {
+  .arrow-right,
+  .arrow-left {
+    width: 150px; /* Adjust size for medium screens */
+    height: 150px; /* Adjust size for medium screens */
+    margin: -70px 0 0 -70px; /* Adjust margin for centering */
+  }
+  
+  .arrow-right {
+    right: -10%; /* Adjust positioning for medium screens */
+  }
+  
+  .arrow-left {
+    left: 10%; /* Adjust positioning for medium screens */
+  }
+  
+  .arrow-right-part,
+  .arrow-left-part {
+    width: 25px; /* Adjust size for medium screens */
+    height: 25px; /* Adjust size for medium screens */
+    border-top: 4px solid #C70053; /* Adjust border thickness */
+    border-right: 4px solid #C70053; /* Adjust border thickness */
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .arrow-right,
+  .arrow-left {
+    width: 150px; /* Adjust size for medium screens */
+    height: 150px; /* Adjust size for medium screens */
+    margin: -70px 0 0 -70px; /* Adjust margin for centering */
+  }
+  
+  .arrow-right {
+    right: -45%; /* Adjust positioning for medium screens */
+  }
+  
+  .arrow-left {
+    left: 15%; /* Adjust positioning for medium screens */
+  }
+  
+  .arrow-right-part,
+  .arrow-left-part {
+    width: 25px; /* Adjust size for medium screens */
+    height: 25px; /* Adjust size for medium screens */
+    border-top: 4px solid #C70053; /* Adjust border thickness */
+    border-right: 4px solid #C70053; /* Adjust border thickness */
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .arrow-right,
+  .arrow-left {
+    width: 150px; /* Larger size for large screens */
+    height: 150px; /* Larger size for large screens */
+    margin: -75px 0 0 -75px; /* Larger margin for centering */
+  }
+
+  .arrow-right {
+    right: -20%; /* Adjust positioning for large screens */
+  }
+
+  .arrow-left {
+    left: 20%; /* Adjust positioning for large screens */
+  }
+
+  .arrow-right-part,
+  .arrow-left-part {
+    width: 30px; /* Larger size for large screens */
+    height: 30px; /* Larger size for large screens */
+  }
+}
+
+/*
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 

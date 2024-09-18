@@ -24,14 +24,28 @@ export const laptopData: Laptop[] = [
         video: "",
         images: [core, core1, core2, core3, core4],
         name: "core-i9",
-        desc: "idshoik",
+        desc: "Lightening speed",
         price: "965000"
     },
     {
         video: "",
         images: [core, core1, core2, core3, core4],
         name: "core-i7",
-        desc: "Sample core i7 laptop",
+        desc: "Fast and reliable",
+        price: "975"
+    },
+    {
+        video: "",
+        images: [core, core1, core2, core3, core4],
+        name: "core-i9",
+        desc: "Lightening speed",
+        price: "965000"
+    },
+    {
+        video: "",
+        images: [core, core1, core2, core3, core4],
+        name: "core-i7",
+        desc: "Fast and reliable",
         price: "975"
     },
 ];

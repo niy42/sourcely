@@ -17,6 +17,8 @@ import ProductGridMobile from "@/components/shared/ProductGridMobile";
 import { useTheme } from "@/context/ThemeContext";
 import TestIcon from "@/components/shared/MobileNav";
 import MobileNav from "@/components/shared/MobileNav";
+import ArrowRight from "@/components/shared/ArrowRight";
+import ArrowLeft from "@/components/shared/ArrowLeft";
 
 interface Props {
   image: StaticImageData;
@@ -165,13 +167,16 @@ export default function Component() {
           </div>
         </section>
         {/* Product Grid */}
-        <section className="overflow-hidden relative w-full py-6 sm:py-12 md:py-24 lg:py-32">
+        <section className="overflow-hidden relative w-full py-6 sm:py-12 md:py-16 lg:py-20">
           <div className="container px-4 md:px-6">
             <div className="flex mb-6 lg:mb-0 flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl overflow-hidden">Explore Our Product Line</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl leading-tight p-4 m-2">
+                  Editor’s Choice: The Best Laptops You Can Buy Right Now
+                </h2>
+
                 <p className="max-w-full text-sm sm:text-base md:text-lg">
-                  Check out our diverse range of products, each designed to enhance your daily life.
+                  Explore our handpicked selection of top laptops, each chosen for their outstanding performance and value. Find the ideal laptop for your needs with our expert-curated recommendations.
                 </p>
               </div>
             </div>
@@ -187,7 +192,7 @@ export default function Component() {
           <div className="absolute inset-0 bg-black/50"></div> {/* Subtle Overlay */}
           <div className="container grid items-center justify-start gap-4 px-4 text-center md:px-6 relative z-10">
             <div className="space-y-3">
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight text-white">
+              <h2 className="text-3xl overflow-hidden font-bold tracking-tighter md:text-4xl/tight text-white">
                 Stay Updated on Our Latest Products
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-white">

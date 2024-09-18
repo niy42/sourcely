@@ -1,3 +1,4 @@
+// ThemeContext.tsx
 'use client';
 
 import React, { createContext, useState, ReactNode, useContext, useEffect, SetStateAction, Dispatch } from 'react';
@@ -16,8 +17,10 @@ interface ThemeContextProps {
     setOpenIndex: Dispatch<SetStateAction<number | null>>;
     showBorder: boolean;
     setShowBorder: Dispatch<SetStateAction<boolean>>;
-    handleToggleMenu: (index: number) => void; // Fixed type
-    handleRightArrow: () => void;
+    isTransitioning: boolean;
+    setIsTransitioning: Dispatch<SetStateAction<boolean>>;
+    handleToggleMenu: (index: number) => void;
+    handleLaptopRightArrow: () => void
 }
 
 const ThemeContext = createContext<ThemeContextProps>({
@@ -29,12 +32,14 @@ const ThemeContext = createContext<ThemeContextProps>({
     setTheme: () => { },
     toggleMenu: false,
     setToggleMenu: () => { },
-    openIndex: null, // Fixed initial value
+    openIndex: null,
     setOpenIndex: () => { },
     showBorder: false,
     setShowBorder: () => { },
-    handleToggleMenu: () => { }, // Fixed type
-    handleRightArrow: () => { }
+    isTransitioning: false,
+    setIsTransitioning: () => { },
+    handleToggleMenu: () => { },
+    handleLaptopRightArrow: () => { }
 });
 
 const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -44,10 +49,7 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [toggleMenu, setToggleMenu] = useState<boolean>(false);
     const [showBorder, setShowBorder] = useState<boolean>(false);
     const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-    function handleRightArrow() {
-        setCurrentLaptopIndex((prev) => (prev + 1) % laptopData.length);
-    }
+    const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
     useEffect(() => {
         const imageInterval = setInterval(() => {
@@ -59,11 +61,19 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     useEffect(() => {
         const laptopInterval = setInterval(() => {
+            setIsTransitioning(true);
             setCurrentLaptopIndex((prev) => (prev + 1) % laptopData.length);
         }, 15000);
 
         return () => clearInterval(laptopInterval);
     }, []);
+
+    useEffect(() => {
+        if (isTransitioning) {
+            const timeout = setTimeout(() => setIsTransitioning(false), 1000); // Adjust to match the duration of your CSS transition
+            return () => clearTimeout(timeout);
+        }
+    }, [currentLaptopIndex, isTransitioning]);
 
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -75,9 +85,13 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         localStorage.setItem('theme', theme);
     }, [theme]);
 
-    // Handle toggle menu
     const handleToggleMenu = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
+    };
+
+    const handleLaptopRightArrow = () => {
+        setIsTransitioning(true);
+        setCurrentLaptopIndex((prev) => (prev + 1) % laptopData.length);
     };
 
     return (
@@ -94,8 +108,10 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             setTheme,
             showBorder,
             setShowBorder,
+            isTransitioning,
+            setIsTransitioning,
             handleToggleMenu,
-            handleRightArrow
+            handleLaptopRightArrow
         }}>
             {children}
         </ThemeContext.Provider>

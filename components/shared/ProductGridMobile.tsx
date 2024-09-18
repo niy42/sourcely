@@ -4,15 +4,19 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { laptopData } from '@/constants';
+import ArrowLeft from './ArrowLeft';
+import ArrowRight from './ArrowRight';
 
-export default function ProductGridMobile() {
-    const [isHover, setIsHover] = useState(false);
+export default function ProductGrid() {
     const {
         theme,
         currentLaptopIndex,
         currentImageIndex,
-        handleRightArrow,
+        isTransitioning,
+        handleLaptopRightArrow,
     } = useTheme();
+    const [hoverStates, setHoverStates] = useState(Array(4).fill(false)); // Initialize hover state for 4 buttons
+    const [currentImageIndexes, setCurrentImageIndexes] = useState(Array(laptopData.length).fill(0)); // State for image indexes
 
     // Ensure the component updates when the laptop index changes
     useEffect(() => {
@@ -22,13 +26,56 @@ export default function ProductGridMobile() {
     // Get the current laptop data
     const currentLaptop = laptopData[currentLaptopIndex];
 
+    // Handle hover state change
+    const handleTouchStart = (index: number) => {
+        setHoverStates(prev => prev.map((hover, i) => i === index ? true : hover));
+    };
+
+    const handleTouchEnd = (index: number) => {
+        setHoverStates(prev => prev.map((hover, i) => i === index ? false : hover));
+    };
+
+    const handleLeftArrow = (cardIndex: number) => {
+        console.log(`cardIndex: ${cardIndex}`);
+        console.log(`laptopData: ${JSON.stringify(laptopData)}`);
+
+        if (cardIndex < 0 || cardIndex >= laptopData.length || !laptopData[cardIndex]?.images) {
+            console.error(`Invalid cardIndex or images not defined: ${cardIndex}`);
+            return;
+        }
+
+        setCurrentImageIndexes((prevIndexes) => {
+            const newIndexes = [...prevIndexes];
+            const currentImageCount = laptopData[cardIndex].images.length;
+
+            // Decrement the index and wrap around if necessary
+            newIndexes[cardIndex] = (newIndexes[cardIndex] - 1 + currentImageCount) % currentImageCount;
+            return newIndexes;
+        });
+    };
+
+    const handleRightArrow = (cardIndex: number) => {
+        console.log(`cardIndex: ${cardIndex}`);
+        console.log(`laptopData: ${JSON.stringify(laptopData)}`);
+
+        if (cardIndex < 0 || cardIndex >= laptopData.length || !laptopData[cardIndex]?.images) {
+            console.error(`Invalid cardIndex or images not defined: ${cardIndex}`);
+            return;
+        }
+
+        setCurrentImageIndexes((prevIndexes) => {
+            const newIndexes = [...prevIndexes];
+            const currentImageCount = laptopData[cardIndex].images.length;
+
+            newIndexes[cardIndex] = (newIndexes[cardIndex] + 1) % currentImageCount;
+            return newIndexes;
+        });
+    };
+
     return (
-        <div className="overflow-hidden mx-auto grid grid-rows-4 gap-8 justify-center max-w-md md:hidden">
+        <div data-aos="zoom-in" className="overflow-hidden mx-auto grid grid-rows-4 gap-8 justify-center max-w-md md:hidden">
             {/* Product Card 1 */}
-            <div
-                data-aos="fade-left"
-                className={`relative ${theme === 'dark' ? 'border-gray-800 border' : ''} overflow-hidden rounded-lg shadow-lg group hover:shadow-xl hover:-translate-y-2`}
-            >
+            <div data-aos="fade-left" className={`relative ${theme === 'dark' ? 'border-gray-800 border' : ''} rounded-lg md:h-72 lg:h-[326px] xl:h-auto shadow-lg group hover:shadow-xl hover:-translate-y-2`}>
                 <Link href="#" className="relative block z-10" prefetch={false}>
                     <span className="sr-only">View Product</span>
                 </Link>
@@ -47,17 +94,13 @@ export default function ProductGridMobile() {
             </div>
 
             {/* Product Card 2 */}
-            <div
-                data-aos="fade-right"
-                data-aos-duration="1500"
-                className={`relative ${theme === 'dark' ? 'border border-gray-800' : ''} overflow-hidden rounded-lg shadow-xl group hover:shadow-xl hover:-translate-y-2`}
-            >
+            <div data-aos="fade-right" className={`relative ${theme === 'dark' ? 'border-none' : ''} overflow-hidden rounded-lg shadow-xl group hover:shadow-xl md:h-72 lg:h-[326px] xl:h-auto hover:-translate-y-2`}>
                 <Link href="#" className="relative block z-10" prefetch={false}>
                     <span className="sr-only">View Product</span>
                 </Link>
 
                 {currentLaptop && (
-                    <div className="relative h-full w-full overflow-hidden rounded-lg shadow-lg group hover:shadow-xl">
+                    <div className={`relative h-full w-full transition-transform transform duration-75 ease-out overflow-hidden rounded-lg shadow-lg group hover:shadow-xl ${isTransitioning ? '' : ''}`}>
                         <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
                             <span className="sr-only">View Product</span>
                         </Link>
@@ -67,27 +110,25 @@ export default function ProductGridMobile() {
                                     key={imgIndex}
                                     src={img.src}
                                     alt={`${currentLaptop.name} image ${imgIndex + 1}`}
-                                    className={`absolute inset-0 mx-auto aspect-square rounded-t-lg object-cover transition-transform transform duration-300 ${imgIndex === currentImageIndex ? 'translate-x-0 z-10' : 'translate-x-full z-0'}`}
+                                    className={`absolute inset-0 mx-auto aspect-square rounded-t-lg object-cover transition-transform transform duration-300 ${imgIndex === currentImageIndexes[1] ? 'translate-x-0 z-10' : 'translate-x-full z-0'}`}
                                     style={{ transition: 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out' }}
                                 />
                             ))}
                         </div>
-                        <div className="flex flex-col space-y-2 absolute bottom-0 p-4 bg-background">
-                            <div className="relative top-0 sm:-top-1 md:top-0">
-                                <h3 className="text-lg font-semibold md:text-xl">{currentLaptop.name}</h3>
-                                <p className="text-sm text-muted-foreground mb-2">{currentLaptop.desc}</p>
-                                <h4 className="text-base font-semibold md:text-lg">${currentLaptop.price}</h4>
-                            </div>
+                        <div className="flex w-full flex-col space-y-2 absolute -bottom-1 p-4 bg-background">
+                            <h3 className="text-lg font-semibold md:text-xl">{currentLaptop.name}</h3>
+                            <p className="text-sm text-muted-foreground">{currentLaptop.desc}</p>
+                            <h4 className="text-base font-semibold md:text-lg">${currentLaptop.price}</h4>
                         </div>
                     </div>
                 )}
                 <button
-                    className={`absolute z-40 bottom-0 right-4 translate-y-[-50%] 
+                    className={`absolute z-40 -bottom-1 right-4 translate-y-[-50%] 
         ${theme === 'dark' ? "text-white stroke-white" : "text-black stroke-black"}
-        ${isHover ? 'over' : 'out'}`}
-                    onMouseEnter={() => setIsHover(true)}
-                    onMouseLeave={() => setIsHover(false)}
-                    onClick={handleRightArrow}
+        ${hoverStates[1] ? 'over' : 'out'}`}
+                    onTouchStart={() => handleTouchStart(1)}
+                    onTouchEnd={() => handleTouchEnd(1)}
+                    onClick={() => handleLaptopRightArrow()} // Pass index to identify which card button was clicked
                 >
                     <svg
                         version="1.1"
@@ -153,20 +194,18 @@ export default function ProductGridMobile() {
                         <polygon className="st0 arrow" points="96.5,144.2 147.8,118.5 96.5,92.8 105.1,118.5" />
                     </svg>
                 </button>
-
+                <ArrowRight cardIndex={1} handleRightArrow={handleRightArrow} />
+                <ArrowLeft cardIndex={1} handleLeftArrow={handleLeftArrow} />
             </div>
 
             {/* Product Card 3 */}
-            <div
-                data-aos="fade-down"
-                className={`relative ${theme === 'dark' ? 'border border-gray-800' : ''} overflow-hidden rounded-lg shadow-xl group hover:shadow-xl hover:-translate-y-2`}
-            >
+            <div data-aos="fade-down" className="relative md:h-72 lg:h-[326px] xl:h-auto overflow-hidden rounded-lg shadow-xl group hover:shadow-xl hover:-translate-y-2">
                 <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
                     <span className="sr-only">View Product</span>
                 </Link>
 
                 {currentLaptop && (
-                    <div className="relative h-full w-full overflow-hidden rounded-lg shadow-lg group hover:shadow-xl">
+                    <div className={`relative h-full w-full transition-transform transform duration-75 ease-out overflow-hidden rounded-lg shadow-lg group hover:shadow-xl ${isTransitioning ? '' : ''}`}>
                         <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
                             <span className="sr-only">View Product</span>
                         </Link>
@@ -176,27 +215,25 @@ export default function ProductGridMobile() {
                                     key={imgIndex}
                                     src={img.src}
                                     alt={`${currentLaptop.name} image ${imgIndex + 1}`}
-                                    className={`absolute inset-0 mx-auto aspect-auto rounded-t-lg object-cover transition-transform transform duration-300 ${imgIndex === currentImageIndex ? 'scale-100 z-10' : 'scale-0 z-0'}`}
+                                    className={`absolute inset-0 mx-auto aspect-auto rounded-t-lg object-cover transition-transform transform duration-300 ${imgIndex === currentImageIndexes[2] ? 'scale-100 z-10' : 'scale-0 z-0'}`}
                                     style={{ transition: 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out' }}
                                 />
                             ))}
                         </div>
-                        <div className="flex w-full flex-col space-y-2 absolute bottom-0 p-4 bg-background">
-                            <div className="relative top-0 sm:-top-1 md:top-0">
-                                <h3 className="text-lg font-semibold md:text-xl">{currentLaptop.name}</h3>
-                                <p className="text-sm text-muted-foreground mb-2">{currentLaptop.desc}</p>
-                                <h4 className="text-base font-semibold md:text-lg">${currentLaptop.price}</h4>
-                            </div>
+                        <div className="flex w-full flex-col space-y-2 absolute -bottom-1 p-4 bg-background">
+                            <h3 className="text-lg font-semibold md:text-xl">{currentLaptop.name}</h3>
+                            <p className="text-sm text-muted-foreground">{currentLaptop.desc}</p>
+                            <h4 className="text-base font-semibold md:text-lg">${currentLaptop.price}</h4>
                         </div>
                     </div>
                 )}
                 <button
-                    className={`absolute z-40 bottom-0 right-4 translate-y-[-50%] 
+                    className={`absolute z-40 -bottom-1 right-4 translate-y-[-50%] 
         ${theme === 'dark' ? "text-white stroke-white" : "text-black stroke-black"}
-        ${isHover ? 'over' : 'out'}`}
-                    onMouseEnter={() => setIsHover(true)}
-                    onMouseLeave={() => setIsHover(false)}
-                    onClick={handleRightArrow}
+        ${hoverStates[2] ? 'over' : 'out'}`}
+                    onTouchStart={() => handleTouchStart(2)}
+                    onTouchEnd={() => handleTouchEnd(2)}
+                    onClick={() => handleLaptopRightArrow()}
                 >
                     <svg
                         version="1.1"
@@ -262,20 +299,19 @@ export default function ProductGridMobile() {
                         <polygon className="st0 arrow" points="96.5,144.2 147.8,118.5 96.5,92.8 105.1,118.5" />
                     </svg>
                 </button>
-
+                <ArrowRight cardIndex={2} handleRightArrow={handleRightArrow} />
+                <ArrowLeft cardIndex={2} handleLeftArrow={handleLeftArrow} />
             </div>
 
             {/* Product Card 4 */}
-            <div
-                data-aos="fade-up"
-                className={`relative ${theme === 'dark' ? 'border border-gray-800' : ''} overflow-hidden rounded-lg shadow-xl group hover:shadow-xl hover:-translate-y-2`}
-            >
+
+            <div data-aos="fade-up" className={`relative overflow-hidden md:h-72 lg:h-[326px] xl:h-auto rounded-lg shadow-xl group hover:shadow-xl hover:-translate-y-2 `}>
                 <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
                     <span className="sr-only">View Product</span>
                 </Link>
 
                 {currentLaptop && (
-                    <div className="relative h-full w-full overflow-hidden rounded-lg shadow-lg group hover:shadow-xl">
+                    <div className={`relative h-full w-full transition-transform transform duration-75 ease-out overflow-hidden rounded-lg shadow-lg group hover:shadow-xl ${isTransitioning ? '' : ''}`}>
                         <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
                             <span className="sr-only">View Product</span>
                         </Link>
@@ -285,27 +321,25 @@ export default function ProductGridMobile() {
                                     key={imgIndex}
                                     src={img.src}
                                     alt={`${currentLaptop.name} image ${imgIndex + 1}`}
-                                    className={`absolute inset-0 mx-auto aspect-auto rounded-t-lg object-cover transition-transform transform duration-300 ${imgIndex === currentImageIndex ? 'translate-y-0 z-10 opacity-100' : '-translate-y-1/2 opacity-0 z-0'}`}
+                                    className={`absolute inset-0 mx-auto aspect-auto rounded-t-lg object-cover transition-transform transform duration-300 ${imgIndex === currentImageIndexes[3] ? 'translate-y-0 z-10 opacity-100' : '-translate-y-1/2 opacity-0 z-0'}`}
                                     style={{ transition: 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out' }}
                                 />
                             ))}
                         </div>
-                        <div className="flex w-full flex-col space-y-2 absolute bottom-0 p-4 bg-background">
-                            <div className="relative top-0 sm:-top-1 md:top-0">
-                                <h3 className="text-lg font-semibold md:text-xl">{currentLaptop.name}</h3>
-                                <p className="text-sm text-muted-foreground mb-2">{currentLaptop.desc}</p>
-                                <h4 className="text-base font-semibold md:text-lg">${currentLaptop.price}</h4>
-                            </div>
+                        <div className="flex w-full flex-col space-y-2 absolute -bottom-1 p-4 bg-background">
+                            <h3 className="text-lg font-semibold md:text-xl">{currentLaptop.name}</h3>
+                            <p className="text-sm text-muted-foreground">{currentLaptop.desc}</p>
+                            <h4 className="text-base font-semibold md:text-lg">${currentLaptop.price}</h4>
                         </div>
                     </div>
                 )}
                 <button
-                    className={`absolute z-40 bottom-0 right-4 translate-y-[-50%] 
+                    className={`absolute z-40 -bottom-1 right-4 translate-y-[-50%] 
         ${theme === 'dark' ? "text-white stroke-white" : "text-black stroke-black"}
-        ${isHover ? 'over' : 'out'}`}
-                    onMouseEnter={() => setIsHover(true)}
-                    onMouseLeave={() => setIsHover(false)}
-                    onClick={handleRightArrow}
+        ${hoverStates[3] ? 'over' : 'out'}`}
+                    onTouchStart={() => handleTouchStart(3)}
+                    onTouchEnd={() => handleTouchEnd(3)}
+                    onClick={() => handleLaptopRightArrow()}
                 >
                     <svg
                         version="1.1"
@@ -371,9 +405,11 @@ export default function ProductGridMobile() {
                         <polygon className="st0 arrow" points="96.5,144.2 147.8,118.5 96.5,92.8 105.1,118.5" />
                     </svg>
                 </button>
-
+                <ArrowRight cardIndex={3} handleRightArrow={handleRightArrow} />
+                <ArrowLeft cardIndex={3} handleLeftArrow={handleLeftArrow} />
             </div>
-            <div>{/*Empty div*/}</div>
+
+            <div></div>
         </div>
     );
 }
