@@ -20,7 +20,9 @@ interface ThemeContextProps {
     isTransitioning: boolean;
     setIsTransitioning: Dispatch<SetStateAction<boolean>>;
     handleToggleMenu: (index: number) => void;
-    handleLaptopRightArrow: () => void
+    handleLaptopRightArrow: () => void;
+    bg: boolean;
+    setBg: Dispatch<SetStateAction<boolean>>
 }
 
 const ThemeContext = createContext<ThemeContextProps>({
@@ -39,7 +41,9 @@ const ThemeContext = createContext<ThemeContextProps>({
     isTransitioning: false,
     setIsTransitioning: () => { },
     handleToggleMenu: () => { },
-    handleLaptopRightArrow: () => { }
+    handleLaptopRightArrow: () => { },
+    bg: false,
+    setBg: () => { }
 });
 
 const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -50,6 +54,18 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [showBorder, setShowBorder] = useState<boolean>(false);
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+    const [bg, setBg] = useState(false);
+
+    const handleBg = () => {
+        setBg(window.scrollY >= 40);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleBg);
+        return () => {
+            window.removeEventListener('scroll', handleBg);
+        };
+    }, []);
 
     useEffect(() => {
         const imageInterval = setInterval(() => {
@@ -111,7 +127,9 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             isTransitioning,
             setIsTransitioning,
             handleToggleMenu,
-            handleLaptopRightArrow
+            handleLaptopRightArrow,
+            bg,
+            setBg,
         }}>
             {children}
         </ThemeContext.Provider>

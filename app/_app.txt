@@ -1,5 +1,5 @@
 // _app.js
-import { ThemeProvider } from 'next-themes';
+/*import { ThemeProvider } from 'next-themes';
 import '../styles/globals.css'; // Import global styles
 
 function MyApp({ Component, pageProps }: { Component: any, pageProps: any }) {
@@ -10,4 +10,4 @@ function MyApp({ Component, pageProps }: { Component: any, pageProps: any }) {
     );
 }
 
-export default MyApp;
+export default MyApp;*/

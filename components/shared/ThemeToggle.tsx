@@ -10,8 +10,11 @@ const ThemeToggle = ({ currentTheme, setTheme }: any) => {
 
     return (
         <button
-            onClick={handleToggle}
-            className={`flex items-center justify-center p-2 rounded-full transition-colors duration-300 
+            onClick={() => {
+                handleToggle();
+                console.log("Toggle is clicked!")
+            }}
+            className={`flex items-center justify-center p-2 rounded-full transition-colors duration-300 cursor-pointer
         ${isDarkMode ? 'bg-gray-700 text-yellow-300 hover:bg-gray-600' : 'bg-yellow-300 text-gray-700 hover:bg-yellow-200'}`}
             aria-label="Toggle theme"
         >

@@ -85,10 +85,10 @@ export default function ProductGrid() {
                     alt="Product 1"
                     className="mx-auto aspect-square overflow-hidden object-cover transition-opacity group-hover:opacity-50"
                 />
-                <div className="p-4 bg-background">
-                    <h3 className="text-lg font-semibold md:text-xl">Ergonomic Office Chair</h3>
-                    <p className="text-sm text-muted-foreground">Comfortable and supportive chair for long workdays.</p>
-                    <h4 className="text-base font-semibold md:text-lg">$249.99</h4>
+                <div className="p-4 bg-background flex flex-col space-y-2">
+                    <h3 className="text-lg font-semibold md:text-xl">SuperG</h3>
+                    <p className="text-sm text-muted-foreground">Category: Remote workers</p>
+                    <h4 className="text-base font-semibold md:text-lg">highly efficient multitasker</h4>
                 </div>
             </div>
 
@@ -117,7 +117,7 @@ export default function ProductGrid() {
                         <div className="flex w-full flex-col space-y-2 absolute bottom-0 p-4 bg-background">
                             <h3 className="text-lg font-semibold md:text-xl">{currentLaptop.name}</h3>
                             <p className="text-sm text-muted-foreground">{currentLaptop.desc}</p>
-                            <h4 className="text-base font-semibold md:text-lg">${currentLaptop.price}</h4>
+                            <h4 className="text-base font-semibold md:text-lg">{currentLaptop.price}</h4>
                         </div>
                     </div>
                 )}
@@ -222,7 +222,7 @@ export default function ProductGrid() {
                         <div className="flex w-full flex-col space-y-2 absolute bottom-0 p-4 bg-background">
                             <h3 className="text-lg font-semibold md:text-xl">{currentLaptop.name}</h3>
                             <p className="text-sm text-muted-foreground">{currentLaptop.desc}</p>
-                            <h4 className="text-base font-semibold md:text-lg">${currentLaptop.price}</h4>
+                            <h4 className="text-base font-semibold md:text-lg">{currentLaptop.price}</h4>
                         </div>
                     </div>
                 )}
@@ -327,7 +327,7 @@ export default function ProductGrid() {
                         <div className="flex w-full flex-col space-y-2 absolute bottom-0 p-4 bg-background">
                             <h3 className="text-lg font-semibold md:text-xl">{currentLaptop.name}</h3>
                             <p className="text-sm text-muted-foreground">{currentLaptop.desc}</p>
-                            <h4 className="text-base font-semibold md:text-lg">${currentLaptop.price}</h4>
+                            <h4 className="text-base font-semibold md:text-lg">{currentLaptop.price}</h4>
                         </div>
                     </div>
                 )}
