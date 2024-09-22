@@ -17,9 +17,9 @@ function Nav() {
             </Link>
 
             {/* Dropdowns */}
-            <Dropdown title="About" links={navlinksfirst} />
-            <Dropdown title="Services" links={navlinkssecond} />
-            <Dropdown title="Offerings" links={navlinksthird} />
+            <Dropdown title="Laptops" links={navlinksfirst} />
+            <Dropdown title="Wearables" links={navlinkssecond} />
+            <Dropdown title="Accessories" links={navlinksthird} />
         </nav>
     );
 }

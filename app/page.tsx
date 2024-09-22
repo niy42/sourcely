@@ -129,7 +129,7 @@ export default function Component() {
             <div className="flex mb-6 lg:mb-0 flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl leading-tight p-4 m-2">
-                  Editor’s Choice: The Best Laptops You Can Buy Right Now
+                  Editor’s Choice: The Best Gadgets You Can Buy Right Now
                 </h2>
 
                 <p className="max-w-full text-sm sm:text-base md:text-lg">

@@ -15,7 +15,7 @@ const Dropdown: React.FC<DropdownProps> = ({ title, links }) => {
         <div className="relative group">
             <Link
                 href="#"
-                className={`flex items-center ${theme === 'dark' ? 'hover:text-gray-300 ' : 'hover:text-gray-600 '} gap-[0.9rem] transition-colors duration-300 whitespace-nowrap`}
+                className={`flex items-center ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'} gap-[0.9rem] transition-colors border-b-2 border-transparent hover:border-blue-600 duration-300 whitespace-nowrap`}
             >
                 {title}
                 <span>
@@ -28,7 +28,7 @@ const Dropdown: React.FC<DropdownProps> = ({ title, links }) => {
                     <Link
                         href={url}
                         key={index + name}
-                        className={`${classname} hover:text-gray-300 transition-colors duration-300 py-[0.5rem] px-[1rem] ${theme === 'dark' ? 'hover:text-gray-300 ' : 'hover:text-gray-600 '}`}
+                        className={`flex items-center py-[0.5rem] px-[1rem] ${classname} transition-colors duration-300 ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'}`}
                     >
                         {name}
                     </Link>
@@ -42,13 +42,16 @@ function Nav() {
     const { theme } = useTheme();
     return (
         <nav className="lg:w-full max-md:w-[20rem] flex items-center gap-[2rem] justify-center">
-            <Link href={""} className={`whitespace-nowrap ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-700'} transition-colors duration-300`}>
+            <Link
+                href={""}
+                className={`whitespace-nowrap ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-700'} transition-colors duration-300 border-b-2 border-transparent hover:border-blue-600`}
+            >
                 Home
             </Link>
 
-            <Dropdown title="Gamers" links={navlinksfirst} />
-            <Dropdown title="Developers" links={navlinkssecond} />
-            <Dropdown title="Professionals" links={navlinksthird} />
+            <Dropdown title="Laptops" links={navlinksfirst} />
+            <Dropdown title="Wearables" links={navlinkssecond} />
+            <Dropdown title="Accessories" links={navlinksthird} />
         </nav>
     );
 }

@@ -26,7 +26,7 @@ const Header = () => {
             <div className="flex-1 flex items-center justify-end ml-4 lg:ml-6 space-x-2">
                 <nav className="hidden md:flex flex-[0.5] gap-2 sm:gap-4">
                     <Nav />
-                    <div className="whitespace-nowrap py-2 px-4 w-full items-center justify-end cursor-pointer bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white font-light rounded-lg shadow-md transition-all duration-200">
+                    <div className="whitespace-nowrap p-2 flex items-center justify-start cursor-pointer bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white font-light rounded-lg shadow-md transition-all duration-200">
                         <Link legacyBehavior href={'#'}>
                             <a className="block text-xs font-light hover:text-gray-400">
                                 <span className="hover:text-gray-300 transition-colors duration-300 bg-transparent">Buying Guides</span>

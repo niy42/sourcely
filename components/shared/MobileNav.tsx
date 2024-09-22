@@ -43,7 +43,7 @@ function MobileNav() {
                         />
                     )}
                 </div>
-                <div className={`flex flex-col items-end justify-start h-fit mobile-nav ${toggleMenu ? "active" : ""} ${showBorder || bg ? "show-border border border-dash border-gray-300" : ""}`}>
+                <div className={`flex flex-col items-end justify-start h-fit mobile-nav ${toggleMenu ? "active" : ""} ${bg ? "" : ""}`}>
                     <div className="py-3 px-5 hover:bg-gray-700 w-full rounded-xl">
                         <Link legacyBehavior href={'#'}>
                             <a className="block text-xs font-light hover:text-gray-400">Home</a>
