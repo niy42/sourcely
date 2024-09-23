@@ -94,7 +94,7 @@ export const navlinksthird: Array<Navlinks> = [
 
 export const mobileNav: MobNav[] = [
     { title: "Laptops", url: "", subNavLinks: [{ title: "Gamers", url: "" }, { title: "Developers", url: "" }, { title: "Students", url: "" }, { title: "Professionals", url: "" }] },
-    { title: "Wearables", url: "", subNavLinks: [{ title: "Smartwatches", url: "" }, { title: "Fitness Trackers", url: "" }, { title: "VR Headsets", url: "" }, { title: "", url: "" }] },
+    { title: "Wearables", url: "", subNavLinks: [{ title: "Smartwatches", url: "" }, { title: "Fitness Trackers", url: "" }, { title: "VR Headsets", url: "" }, { title: "Smart Glasses", url: "" }, { title: "Smart Rings", url: "" }] },
     { title: "Accessories", url: "", subNavLinks: [{ title: "Smartwatch Bands", url: "" }, { title: "Mouse & Keyboards", url: "" }, { title: "Chargers & Adapters", url: "" }, { title: "Headphones & Earbuds", url: "" }, { title: "Laptop Bags & Sleeves", url: "" }] },
 ];
 

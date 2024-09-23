@@ -362,7 +362,7 @@ h1 {
 .arrow-left {
   position: absolute;
   top: 50%;
-  left: 10%;
+  left: 13%;
   width: 150px;
   height: 150px;
   margin: -75px 0 0 -75px;
@@ -447,11 +447,11 @@ h1 {
   }
   
   .arrow-right {
-    right: -45%; /* Adjust positioning for medium screens */
+    right: -15%; /* Adjust positioning for medium screens */
   }
   
   .arrow-left {
-    left: 15%; /* Adjust positioning for medium screens */
+    left: 13%; /* Adjust positioning for medium screens */
   }
   
   .arrow-right-part,
@@ -472,11 +472,11 @@ h1 {
   }
 
   .arrow-right {
-    right: -25%; /* Adjust positioning for large screens */
+    right: -9%; /* Adjust positioning for large screens */
   }
 
   .arrow-left {
-    left: 20%; /* Adjust positioning for large screens */
+    left: 12%; /* Adjust positioning for large screens */
   }
 
   .arrow-right-part,
@@ -495,11 +495,11 @@ h1 {
   }
 
   .arrow-right {
-    right: -20%; /* Adjust positioning for large screens */
+    right: -18%; /* Adjust positioning for large screens */
   }
 
   .arrow-left {
-    left: 20%; /* Adjust positioning for large screens */
+    left: 14%; /* Adjust positioning for large screens */
   }
 
   .arrow-right-part,
