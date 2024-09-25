@@ -10,7 +10,7 @@ import { Sacramento, Lobster_Two, Dancing_Script } from "next/font/google";
 import axios from "axios";
 import Image, { StaticImageData } from "next/image";
 
-import { RiCloseLine, RiMenu3Line } from 'react-icons/ri'
+import { RiCloseLine, RiDoubleQuotesL, RiDoubleQuotesR, RiMenu3Line } from 'react-icons/ri'
 import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io';
 import ProductGrid from "@/components/shared/ProductGrid";
 import ProductGridMobile from "@/components/shared/ProductGridMobile";
@@ -20,6 +20,7 @@ import MobileNav from "@/components/shared/MobileNav";
 import ArrowRight from "@/components/shared/ArrowRight";
 import ArrowLeft from "@/components/shared/ArrowLeft";
 import Nav from "@/components/shared/Nav";
+import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 
 interface Props {
   image: StaticImageData;
@@ -29,6 +30,11 @@ interface Props {
 const lobsterTwo = Lobster_Two({
   subsets: ["latin"],
   weight: ["400", "700"],
+});
+
+const dancingScript = Dancing_Script({
+  subsets: ['latin'],
+  weight: ["400", "700"]
 });
 
 export default function Component() {
@@ -116,11 +122,19 @@ export default function Component() {
                   </Link>
                 </div>
               </div>
-              <div className="flex justify-center items-center w-full h-full">
-                { /*<Carousel images={imageObjects} />*/}
-                <Image src={""} alt="" />
-                {/*Why Sourcely?, every product has been 100% researched to meet your specific needs. You don't only buy a product because you want them, buy them because you need them. Choose wisely! Use Sourcely!*/}
+              <div className="flex z-40 relative mx-auto text-center justify-center items-center lg:w-full max-sm:max-w-xs md:max-w-2xl h-full px-4">
+                {/* <Carousel images={imageObjects} /> */}
+                <RiDoubleQuotesL fontSize={28} className="absolute top-2 text-white left-6 lg:left-2" />
+                <p className="text-center text-white text-2xl md:text-2xl md:leading-relaxed xl:text-3xl max-lg:marker:overflow-hidden ">
+                  <span className={`${dancingScript.className} text-3xl md:text-4xl lg:text-5xl`}>A</span>
+                  t Sourcely, we meticulously research every product to ensure it meets your specific needs. It's not just about wanting a product; it's about choosing what you truly need. Make informed decisions. Choose Sourcely!
+                </p>
+                <RiDoubleQuotesR fontSize={28} className="absolute text-white right-6 lg:right-24 bottom-0" />
+                <p className={`${dancingScript.className} absolute invisible lg:visible text-white lg:bottom-[-48px] right-0 text-lg font-extralight tracking-wider`}>
+                  Niyi Andrew
+                </p>
               </div>
+
             </div>
           </div>
         </section>
@@ -130,11 +144,11 @@ export default function Component() {
             <div className="flex mb-6 lg:mb-0 flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl leading-tight p-4 m-2">
-                  Editor’s Choice: The Best Gadgets You Can Buy Right Now
+                  Editor’s Choice: The Best Devices You Can Own Right Now
                 </h2>
 
                 <p className="max-w-full text-sm sm:text-base md:text-lg">
-                  Explore our handpicked selection of top laptops, each chosen for their outstanding performance and value. Find the ideal laptop for your needs with our expert-curated recommendations.
+                  Explore our handpicked selection of top gadgets, each chosen for their outstanding performance and value. Find the ideal laptop for your needs with our expert-curated recommendations.
                 </p>
               </div>
             </div>
