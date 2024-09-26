@@ -148,7 +148,7 @@ export default function Component() {
                 </h2>
 
                 <p className="max-w-full text-sm sm:text-base md:text-lg">
-                  Explore our handpicked selection of top gadgets, each chosen for their outstanding performance and value. Find the ideal laptop for your needs with our expert-curated recommendations.
+                  Explore our handpicked selection of top gadgets, each chosen for their outstanding performance and value. Find the ideal item for your needs with our expert-curated recommendations.
                 </p>
               </div>
             </div>

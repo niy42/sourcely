@@ -70,7 +70,7 @@ export const laptopData: Laptop[] = [
 ];
 
 export const navlinksfirst: Array<Navlinks> = [
-    { name: "Gamers", url: "/test", classname: "px-[1rem] py-[0.7rem] hover:bg-[#171719] duration-200 whitespace-nowrap" },
+    { name: "Gamers", url: "/test", classname: "px-[1rem] py-[0.7rem] hover:bg-[#1fce43] duration-200 whitespace-nowrap" },
     { name: "Developers", url: "/test", classname: "px-[1rem] py-[0.7rem] hover:bg-[#171719] duration-200 whitespace-nowrap" },
     { name: "Students", url: "/test", classname: "px-[1rem] py-[0.7rem] hover:bg-[#171719] duration-200 whitespace-nowrap" },
     { name: "Professional", url: "/test", classname: "px-[1rem] py-[0.7rem] hover:bg-[#171719] duration-200 whitespace-nowrap" }

@@ -28,7 +28,7 @@ const Dropdown: React.FC<DropdownProps> = ({ title, links }) => {
                     <Link
                         href={url}
                         key={index + name}
-                        className={`flex items-center py-[0.5rem] px-[1rem] ${classname} transition-colors duration-300 ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'}`}
+                        className={`flex items-center py-[0.5rem] px-[1rem] ${classname} ${index === 0 ? "rounded-t-[5px]" : ""} ${index === links.length - 1 ? "rounded-b-[5px]" : ""} ${theme === 'dark' ? "hover:bg-[#1d6ac2]" : "hover:bg-[#1dc23e]"} transition-colors duration-300 ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'}`}
                     >
                         {name}
                     </Link>
