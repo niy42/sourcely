@@ -13,6 +13,9 @@ export default {
         heading: ['var(--font-heading)', ...fontFamily.sans],
         body: ['var(--font-body)', ...fontFamily.sans]
       },
+      screens: {
+        mg: "500px"
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

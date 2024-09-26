@@ -124,13 +124,13 @@ export default function Component() {
               </div>
               <div className="flex z-40 relative mx-auto text-center justify-center items-center lg:w-full max-sm:max-w-xs md:max-w-2xl h-full px-4">
                 {/* <Carousel images={imageObjects} /> */}
-                <RiDoubleQuotesL fontSize={28} className="absolute top-2 text-white left-6 lg:left-2" />
+                <RiDoubleQuotesL fontSize={28} className="absolute top-2 text-white left-6 md:left-4 lg:left-6 xl:left-[-2px] md:top-[42px] lg:top-[22px] xl:top-[10px]" />
                 <p className="text-center text-white text-2xl md:text-2xl md:leading-relaxed xl:text-3xl max-lg:marker:overflow-hidden ">
                   <span className={`${dancingScript.className} text-3xl md:text-4xl lg:text-5xl`}>A</span>
                   t Sourcely, we meticulously research every product to ensure it meets your specific needs. It's not just about wanting a product; it's about choosing what you truly need. Make informed decisions. Choose Sourcely!
                 </p>
-                <RiDoubleQuotesR fontSize={28} className="absolute text-white right-6 lg:right-24 bottom-0" />
-                <p className={`${dancingScript.className} absolute invisible lg:visible text-white lg:bottom-[-48px] right-0 text-lg font-extralight tracking-wider`}>
+                <RiDoubleQuotesR fontSize={28} className="absolute text-white right-14 md:right-[72px] lg:right-[128px] xl:right-14 bottom-0 md:bottom-12 lg:bottom-8 xl:bottom-4" />
+                <p className={`${dancingScript.className} absolute text-white -left-48 mg:-left-[300px] bottom-0 lg:bottom-[-8px] xl:bottom-[-28px] right-0 xl:-right-8 text-lg font-extralight tracking-wider`}>
                   Niyi Andrew
                 </p>
               </div>
