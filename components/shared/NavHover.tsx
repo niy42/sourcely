@@ -15,7 +15,7 @@ const Dropdown: React.FC<DropdownProps> = ({ title, links }) => {
         <div className="relative group">
             <Link
                 href="#"
-                className={`flex items-center ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-600'} gap-[0.9rem] transition-colors border-b-2 border-transparent hover:border-blue-600 duration-300 whitespace-nowrap`}
+                className={`flex items-center ${theme === 'dark' ? 'hover:border-blue-600 hover:text-gray-300' : 'hover:text-gray-600 hover:border-[#1dc23e]'} gap-[0.9rem] transition-colors border-b-2 border-transparent duration-300 whitespace-nowrap`}
             >
                 {title}
                 <span>
@@ -44,7 +44,7 @@ function Nav() {
         <nav className="lg:w-full max-md:w-[20rem] flex items-center gap-[2rem] justify-center">
             <Link
                 href={""}
-                className={`whitespace-nowrap ${theme === 'dark' ? 'hover:text-gray-300' : 'hover:text-gray-700'} transition-colors duration-300 border-b-2 border-transparent hover:border-blue-600`}
+                className={`whitespace-nowrap ${theme === 'dark' ? 'hover:text-gray-300 hover:border-blue-600' : 'hover:text-gray-700 hover:border-[#1dc23e]'} transition-colors duration-300 border-b-2 border-transparent`}
             >
                 Home
             </Link>

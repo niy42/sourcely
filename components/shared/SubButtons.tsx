@@ -1,4 +1,4 @@
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/context/ThemeContext';
 
 const SubButton = ({ type, children }: { type: any, children: React.ReactNode }) => {
     const { theme } = useTheme(); // Get the current theme
@@ -6,7 +6,7 @@ const SubButton = ({ type, children }: { type: any, children: React.ReactNode })
     return (
         <button
             type={type}
-            className={`px-4 py-2 text-white font-bold rounded-md transition-colors duration-300 ${theme === 'dark' ? 'bg-white' : 'bg-black'
+            className={`px-4 py-2 font-bold rounded-md transition-colors duration-300 outline-none border-none ${theme === 'light' ? 'bg-white' : 'bg-black'
                 }`}
         >
             {children}

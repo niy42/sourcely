@@ -208,7 +208,7 @@ export default function Component() {
                 Subscribe to our email list to receive updates on new product releases, special offers, and more.
               </p>
             </div>
-            <div className="mx-auto w-full max-w-2xl space-y-2">
+            <div className="mx-auto w-full max-w-2xl space-y-6">
               <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:flex-row bg-transparent xl:bg-gray-900 p-4 rounded-2xl">
                 <input
                   type="text"
